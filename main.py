@@ -98,10 +98,10 @@ def getProbability(p):
   return successfullSimulations / iterations
 
 n = 10
-pStart = 0.2
-pStop = 0.8
+pStart = 0.3
+pStop = 0.7
 pSteps = 100
-iterations = 100
+iterations = 5000
 
 size = n * 2 + 1
 
@@ -123,14 +123,14 @@ if __name__ == '__main__':
   plt.ylabel("propability that a path from left to right exists")
   plt.plot(P, PROB)
 
-  X = np.linspace(pStart, pStop, 500)
-  Y = norm.cdf(20 * (X - 0.5))
-  plt.plot(X, Y, label="CDF")
+  # X = np.linspace(pStart, pStop, 500)
+  # Y = norm.cdf(20 * (X - 0.5))
+  # plt.plot(X, Y, label="CDF")
 
-  GRAD = np.gradient(Y, X)
-  plt.plot(X, GRAD)
+  # GRAD = np.gradient(Y, X)
+  # plt.plot(X, GRAD)
 
-  print("mu, std", norm.fit(GRAD))
+  # print("mu, std", norm.fit(GRAD))
 
   plt.legend()
   plt.show()
