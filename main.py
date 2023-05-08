@@ -6,17 +6,17 @@ from scipy.stats import norm
 import random
 from node import Node
 
-sys.setrecursionlimit(4000)
+sys.setrecursionlimit(10_000)
 
 def keepEdge(p):
   return random.random() < p # 0 <= random.random() < 1
 
-def searchNode(node, leftNodesChecked, searchedNodes):
+def searchNode(node, searchedNodes):
   if node in searchedNodes:
     return False
 
-  if node.x == -(size - 1) // 2:
-    leftNodesChecked.append(node)
+  #if node.x == -(size - 1) // 2:
+  #  leftNodesChecked.append(node)
 
   if node.x == (size - 1) // 2:
     return True
@@ -25,10 +25,10 @@ def searchNode(node, leftNodesChecked, searchedNodes):
 
   for edge in node.connectedEdges:
     if edge[0] == node:
-      if searchNode(edge[1], leftNodesChecked, searchedNodes):
+      if searchNode(edge[1], searchedNodes):
         return True
     elif edge[1] == node:
-      if searchNode(edge[0], leftNodesChecked, searchedNodes):
+      if searchNode(edge[0], searchedNodes):
         return True
     else:
       print("Error")
@@ -77,12 +77,11 @@ def simulate(p):
   #     edge[1].connectedEdges.remove(edge)
   #     edges.remove(edge)
 
-  leftNodesChecked = []
+  searchedNodes = []
 
   for i in range(0, size):
     node = nodes[i]
-    searchedNodes = []
-    if not (node in leftNodesChecked) and searchNode(node, leftNodesChecked, searchedNodes):
+    if searchNode(node, searchedNodes):
       return True
 
   return False
@@ -99,10 +98,10 @@ def getProbability(p):
   return successfullSimulations / iterations
 
 n = 10
-pStart = 0.3
-pStop = 0.7
+pStart = 0.2
+pStop = 0.8
 pSteps = 100
-iterations = 500
+iterations = 100
 
 size = n * 2 + 1
 
@@ -124,6 +123,16 @@ if __name__ == '__main__':
   plt.ylabel("propability that a path from left to right exists")
   plt.plot(P, PROB)
 
+  X = np.linspace(pStart, pStop, 500)
+  Y = norm.cdf(20 * (X - 0.5))
+  plt.plot(X, Y, label="CDF")
+
+  GRAD = np.gradient(Y, X)
+  plt.plot(X, GRAD)
+
+  print("mu, std", norm.fit(GRAD))
+
+  plt.legend()
   plt.show()
 
 
