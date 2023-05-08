@@ -2,6 +2,7 @@ import sys
 import multiprocessing as mp
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import norm
 import random
 from node import Node
 
@@ -97,11 +98,11 @@ def getProbability(p):
 
   return successfullSimulations / iterations
 
-n = 50
-pStart = 0.45
-pStop = 0.55
+n = 10
+pStart = 0.3
+pStop = 0.7
 pSteps = 100
-iterations = 20
+iterations = 500
 
 size = n * 2 + 1
 
@@ -122,6 +123,7 @@ if __name__ == '__main__':
   plt.xlabel("p")
   plt.ylabel("propability that a path from left to right exists")
   plt.plot(P, PROB)
+
   plt.show()
 
 
