@@ -98,10 +98,10 @@ def getProbability(p):
   return successfullSimulations / iterations
 
 n = 50
-pStart = 0.35
-pStop = 0.65
+pStart = 0.45
+pStop = 0.55
 pSteps = 100
-iterations = 10
+iterations = 20
 
 size = n * 2 + 1
 
