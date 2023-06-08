@@ -133,11 +133,11 @@ def getProbability(p):
 
   return successfullSimulations / iterations
 
-n = 10
+n = 50
 pStart = 0
 pStop = 1
-pSteps = 300
-iterations = 500
+pSteps = 75
+iterations = 50
 diagonals = 0
 
 size = n * 2 + 1
